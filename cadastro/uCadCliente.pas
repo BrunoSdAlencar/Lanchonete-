@@ -9,6 +9,11 @@ uses
 
 type
   TfrmCadCliente = class(TfrmFormHeranca)
+    QryListagemclientesId: TAutoIncField;
+    QryListagemnome: TStringField;
+    QryListagemendereco: TStringField;
+    QryListagemtelefone: TStringField;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -21,5 +26,11 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmCadCliente.FormCreate(Sender: TObject);
+begin
+  inherited;
+  IndiceAtual:='nome';
+end;
 
 end.

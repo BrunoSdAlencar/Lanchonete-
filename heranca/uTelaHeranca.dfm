@@ -3,7 +3,7 @@ object frmFormHeranca: TfrmFormHeranca
   Top = 0
   Caption = 'Informe o titulo'
   ClientHeight = 429
-  ClientWidth = 738
+  ClientWidth = 774
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,72 +11,82 @@ object frmFormHeranca: TfrmFormHeranca
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pgcPrincipal: TPageControl
     Left = 0
     Top = 0
-    Width = 738
+    Width = 774
     Height = 388
     ActivePage = tabListagem
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 738
     object tabListagem: TTabSheet
       Caption = 'Listagem'
+      ExplicitWidth = 730
       object pnlListagemTopo: TPanel
         Left = 0
         Top = 0
-        Width = 730
+        Width = 766
         Height = 73
         Align = alTop
         TabOrder = 0
+        ExplicitWidth = 730
+        object lblIndice: TLabel
+          Left = 3
+          Top = 2
+          Width = 78
+          Height = 13
+          Caption = 'Campo Pesquisa'
+        end
         object mskPesquisar: TMaskEdit
           Left = 3
-          Top = 16
+          Top = 21
           Width = 233
           Height = 21
           TabOrder = 0
           TextHint = 'Pesquisa'
-        end
-        object btnPesquisar: TBitBtn
-          Left = 242
-          Top = 14
-          Width = 75
-          Height = 25
-          Caption = 'Pes&quisar'
-          DoubleBuffered = True
-          ParentDoubleBuffered = False
-          TabOrder = 1
+          OnChange = mskPesquisarChange
         end
       end
       object grdListagem: TDBGrid
         Left = 0
         Top = 73
-        Width = 730
+        Width = 766
         Height = 287
         Align = alClient
         DataSource = dtsListagem
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        OnTitleClick = grdListagemTitleClick
       end
     end
     object tabManutencao: TTabSheet
       Caption = 'Manuten'#231#227'o'
       ImageIndex = 1
+      ExplicitWidth = 730
     end
   end
   object pnlRodape: TPanel
     Left = 0
     Top = 388
-    Width = 738
+    Width = 774
     Height = 41
     Align = alBottom
     TabOrder = 1
+    ExplicitWidth = 738
+    DesignSize = (
+      774
+      41)
     object btnNovo: TBitBtn
       Left = 7
       Top = 6
@@ -86,6 +96,7 @@ object frmFormHeranca: TfrmFormHeranca
       DoubleBuffered = True
       ParentDoubleBuffered = False
       TabOrder = 0
+      OnClick = btnNovoClick
     end
     object btnAlterar: TBitBtn
       Left = 88
@@ -96,6 +107,7 @@ object frmFormHeranca: TfrmFormHeranca
       DoubleBuffered = True
       ParentDoubleBuffered = False
       TabOrder = 1
+      OnClick = btnAlterarClick
     end
     object btnCancelar: TBitBtn
       Left = 169
@@ -106,6 +118,7 @@ object frmFormHeranca: TfrmFormHeranca
       DoubleBuffered = True
       ParentDoubleBuffered = False
       TabOrder = 2
+      OnClick = btnCancelarClick
     end
     object btnGravar: TBitBtn
       Left = 250
@@ -116,6 +129,7 @@ object frmFormHeranca: TfrmFormHeranca
       DoubleBuffered = True
       ParentDoubleBuffered = False
       TabOrder = 3
+      OnClick = btnGravarClick
     end
     object btnApagar: TBitBtn
       Left = 331
@@ -126,6 +140,7 @@ object frmFormHeranca: TfrmFormHeranca
       DoubleBuffered = True
       ParentDoubleBuffered = False
       TabOrder = 4
+      OnClick = btnApagarClick
     end
     object btnNavigator: TDBNavigator
       Left = 412
@@ -137,15 +152,17 @@ object frmFormHeranca: TfrmFormHeranca
       TabOrder = 5
     end
     object btnFechar: TBitBtn
-      Left = 642
+      Left = 678
       Top = 6
       Width = 75
       Height = 25
+      Anchors = [akRight]
       Caption = '&Fechar'
       DoubleBuffered = True
       ParentDoubleBuffered = False
       TabOrder = 6
       OnClick = btnFecharClick
+      ExplicitLeft = 642
     end
   end
   object QryListagem: TADOQuery

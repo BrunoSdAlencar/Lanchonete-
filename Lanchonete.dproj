@@ -62,6 +62,7 @@
 			<DCCReference Include="cadastro\uCadCliente.pas">
 				<Form>frmCadCliente</Form>
 			</DCCReference>
+			<DCCReference Include="heranca\uEnum.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

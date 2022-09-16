@@ -49,6 +49,18 @@ end;
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
   dtmPrincipal := TdtmPrincipal.Create(Self);
+  {with dtmPrincipal.ConexaoDB do
+  begin
+    Provider=SQLOLEDB.1;
+    Password=rt6666;
+    Persist Security Info=True;
+    User ID=sa;
+    Initial Catalog=LanchoneteDB;
+    Data Source=DESKTOP-5TJOKC3\SERVERCURSO;
+  end; }
+
+
+
   if not dtmPrincipal.ConexaoDB.Connected then
     //ShowMessage('Não ta conectado')
   else
