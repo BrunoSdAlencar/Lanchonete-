@@ -1,79 +1,78 @@
 inherited frmCadCliente: TfrmCadCliente
   Caption = 'Cadastro de Clientes'
-  ClientWidth = 860
-  ExplicitWidth = 876
+  ClientWidth = 933
+  ExplicitWidth = 949
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcPrincipal: TPageControl
-    Width = 860
-    ExplicitWidth = 774
+    Width = 933
     inherited tabListagem: TTabSheet
-      ExplicitWidth = 766
       inherited pnlListagemTopo: TPanel
-        Width = 852
-        ExplicitWidth = 766
+        Width = 925
       end
       inherited grdListagem: TDBGrid
-        Width = 852
+        Width = 925
         Columns = <
           item
             Expanded = False
-            FieldName = 'clientesId'
-            Width = 45
+            FieldName = 'C'#243'digo'
+            Width = 91
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'nome'
+            FieldName = 'Nome'
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'endereco'
+            FieldName = 'Endereco'
             Width = 336
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'bairro'
+            FieldName = 'Bairro'
             Visible = False
           end
           item
             Expanded = False
-            FieldName = 'cep'
+            FieldName = 'CEP'
             Visible = False
           end
           item
             Expanded = False
-            FieldName = 'telefone'
+            FieldName = 'Telefone'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'email'
+            FieldName = 'E-mail'
             Visible = False
           end>
       end
     end
     inherited tabManutencao: TTabSheet
-      ExplicitWidth = 766
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 852
+      ExplicitHeight = 0
     end
   end
   inherited pnlRodape: TPanel
-    Width = 860
-    ExplicitWidth = 774
+    Width = 933
     inherited btnNavigator: TDBNavigator
       Hints.Strings = ()
     end
     inherited btnFechar: TBitBtn
-      Left = 764
-      ExplicitLeft = 678
+      Left = 837
     end
   end
   inherited QryListagem: TADOQuery
     CursorType = ctStatic
     SQL.Strings = (
-      'select clientesId,'
+      'select clienteId,'
       #9'nome,'
       #9'endereco,'
       #9'bairro,'
@@ -81,9 +80,9 @@ inherited frmCadCliente: TfrmCadCliente
       #9'telefone,'
       #9'email'
       'from clientes')
-    object QryListagemclientesId: TAutoIncField
+    object QryListagemclienteId: TAutoIncField
       DisplayLabel = 'C'#243'digo'
-      FieldName = 'clientesId'
+      FieldName = 'clienteId'
       ReadOnly = True
     end
     object QryListagemnome: TStringField
@@ -96,10 +95,25 @@ inherited frmCadCliente: TfrmCadCliente
       FieldName = 'endereco'
       Size = 60
     end
+    object QryListagembairro: TStringField
+      DisplayLabel = 'Bairro'
+      FieldName = 'bairro'
+      Size = 40
+    end
+    object QryListagemcep: TStringField
+      DisplayLabel = 'CEP'
+      FieldName = 'cep'
+      Size = 10
+    end
     object QryListagemtelefone: TStringField
       DisplayLabel = 'Telefone'
       FieldName = 'telefone'
       Size = 14
+    end
+    object QryListagememail: TStringField
+      DisplayLabel = 'E-mail'
+      FieldName = 'email'
+      Size = 100
     end
   end
 end

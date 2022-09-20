@@ -24,10 +24,8 @@ object frmFormHeranca: TfrmFormHeranca
     ActivePage = tabListagem
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 738
     object tabListagem: TTabSheet
       Caption = 'Listagem'
-      ExplicitWidth = 730
       object pnlListagemTopo: TPanel
         Left = 0
         Top = 0
@@ -35,7 +33,6 @@ object frmFormHeranca: TfrmFormHeranca
         Height = 73
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 730
         object lblIndice: TLabel
           Left = 3
           Top = 2
@@ -73,7 +70,6 @@ object frmFormHeranca: TfrmFormHeranca
     object tabManutencao: TTabSheet
       Caption = 'Manuten'#231#227'o'
       ImageIndex = 1
-      ExplicitWidth = 730
     end
   end
   object pnlRodape: TPanel
@@ -83,7 +79,6 @@ object frmFormHeranca: TfrmFormHeranca
     Height = 41
     Align = alBottom
     TabOrder = 1
-    ExplicitWidth = 738
     DesignSize = (
       774
       41)
@@ -162,7 +157,6 @@ object frmFormHeranca: TfrmFormHeranca
       ParentDoubleBuffered = False
       TabOrder = 6
       OnClick = btnFecharClick
-      ExplicitLeft = 642
     end
   end
   object QryListagem: TADOQuery

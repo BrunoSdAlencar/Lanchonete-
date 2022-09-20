@@ -28,6 +28,10 @@ object frmPrincipal: TfrmPrincipal
       object N1: TMenuItem
         Caption = '-'
       end
+      object CATEGORIA1: TMenuItem
+        Caption = 'CATEGORIA'
+        OnClick = CATEGORIA1Click
+      end
       object PRODUTOS1: TMenuItem
         Caption = 'PRODUTOS'
       end

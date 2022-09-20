@@ -50,6 +50,8 @@ type
   public
     { Public declarations }
     IndiceAtual:string;
+    function Apagar:Boolean; virtual;
+    function Gravar(EstadoDoCadastro:TEstadoDoCadastro):Boolean; virtual;
   end;
 
 var
@@ -95,10 +97,12 @@ end;
 
 procedure TfrmFormHeranca.btnApagarClick(Sender: TObject);
 begin
-  ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+  if Apagar then begin
+    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
     btnNavigator, pgcPrincipal, False);
     ControlarIndiceTab(pgcPrincipal, 0);
     EstadoDoCadastro:=ecNenhum;
+  end;
 end;
 
 procedure TfrmFormHeranca.btnCancelarClick(Sender: TObject);
@@ -116,10 +120,16 @@ end;
 
 procedure TfrmFormHeranca.btnGravarClick(Sender: TObject);
 begin
-  ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
-    btnNavigator, pgcPrincipal, True);
-    ControlarIndiceTab(pgcPrincipal, 0);
-    EstadoDoCadastro:=ecNenhum;
+  try
+    if Gravar(EstadoDoCadastro) then
+      begin
+        ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+        btnNavigator, pgcPrincipal, True);
+        ControlarIndiceTab(pgcPrincipal, 0);
+      end;
+      finally
+      EstadoDoCadastro:=ecNenhum;
+      end;
 end;
 
 function TfrmFormHeranca.RetornarCampoTraduzido(Campo:string):string;
@@ -127,13 +137,15 @@ var i : integer;
 begin
   for i := 0 to QryListagem.Fields.Count-1 do
     begin
-    if QryListagem.Fields[i].FieldName=Campo then
+    if LowerCase(QryListagem.Fields[i].FieldName)=LowerCase(Campo) then
       begin
         Result:=QryListagem.Fields[i].DisplayLabel;
         Break;
       end;
     end;
 end;
+
+
 
 procedure TfrmFormHeranca.ExibirLabelIndice(Campo:string ; aLabel:TLabel);
 begin
@@ -142,6 +154,23 @@ end;
 
 {$ENDREGION}
 
+{$REGION 'Metodo Virtual'}
+function TfrmFormHeranca.Apagar: Boolean;
+begin
+  ShowMessage('deletado');
+  Result := True;
+end;
+
+function TfrmFormHeranca.Gravar(EstadoDoCadastro:TEstadoDoCadastro): Boolean;
+begin
+   if (EstadoDoCadastro = ecInserir) then
+    ShowMessage('Inserir')
+  else if (EstadoDoCadastro = ecAlterar) then
+    ShowMessage('Gravado');
+  Result := True;
+end;
+
+{$ENDREGION}
 procedure TfrmFormHeranca.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   QryListagem.Close;
@@ -164,7 +193,11 @@ begin
     ExibirLabelIndice(IndiceAtual, lblIndice);
     QryListagem.Open;
   end;
+  ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+    btnNavigator, pgcPrincipal, True);
 end;
+
+
 
 procedure TfrmFormHeranca.grdListagemTitleClick(Column: TColumn);
 begin

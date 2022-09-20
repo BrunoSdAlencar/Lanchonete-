@@ -9,10 +9,13 @@ uses
 
 type
   TfrmCadCliente = class(TfrmFormHeranca)
-    QryListagemclientesId: TAutoIncField;
+    QryListagemclienteId: TAutoIncField;
     QryListagemnome: TStringField;
     QryListagemendereco: TStringField;
+    QryListagembairro: TStringField;
+    QryListagemcep: TStringField;
     QryListagemtelefone: TStringField;
+    QryListagememail: TStringField;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }

@@ -21,9 +21,11 @@ type
     N3: TMenuItem;
     SAIR1: TMenuItem;
     VENDAS1: TMenuItem;
+    CATEGORIA1: TMenuItem;
     procedure SAIR1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure CLIENTES1Click(Sender: TObject);
+    procedure CATEGORIA1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -35,9 +37,16 @@ var
 
 implementation
 
-uses uCadCliente;
+uses uCadCliente, uCadCategoria;
 
 {$R *.dfm}
+
+procedure TfrmPrincipal.CATEGORIA1Click(Sender: TObject);
+begin
+  frmCadCategoria:=TfrmCadCategoria.Create(Self);
+  frmCadCategoria.ShowModal;
+  frmCadCategoria.Release;
+end;
 
 procedure TfrmPrincipal.CLIENTES1Click(Sender: TObject);
 begin
