@@ -57,7 +57,7 @@ object frmFormHeranca: TfrmFormHeranca
         Height = 287
         Align = alClient
         DataSource = dtsListagem
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText

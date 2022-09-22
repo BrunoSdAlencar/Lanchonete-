@@ -99,6 +99,8 @@ begin
   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
     btnNavigator, pgcPrincipal, False);
     EstadoDoCadastro:=ecAlterar;
+    QryListagem.Close;
+    QryListagem.Open;
 end;
 
 procedure TfrmFormHeranca.btnApagarClick(Sender: TObject);
@@ -108,8 +110,11 @@ begin
       begin
         ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
         btnNavigator, pgcPrincipal, true);
-        LimparEdits;
         ControlarIndiceTab(pgcPrincipal, 0);
+        LimparEdits;
+        QryListagem.Close;
+        QryListagem.Open;
+
       end
     else
       begin
@@ -136,22 +141,27 @@ end;
 
 procedure TfrmFormHeranca.btnGravarClick(Sender: TObject);
 begin
-  try
-    if Gravar(EstadoDoCadastro) then
-      begin
-        ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
-        btnNavigator, pgcPrincipal, True);
-        ControlarIndiceTab(pgcPrincipal, 0);
-        LimparEdits;
-        EstadoDoCadastro:=ecNenhum;
-      end
-      else
-      begin
-        MessageDlg('Erro na gravação!', mtWarning, [mbOK], 0);
-      end;
-      finally
+  if (ExisteCampoObrigatorio) then
+    abort;
 
+  Try
+    if Gravar(EstadoDoCadastro) then
+      begin  // Método virtual
+        ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+          btnNavigator, pgcPrincipal, True);
+        ControlarIndiceTab(pgcPrincipal, 0);
+        EstadoDoCadastro := ecNenhum;
+        LimparEdits;
+        QryListagem.Close;
+        QryListagem.Open;
+        //QryListagem.Refresh;
+      end
+    else
+      begin
+        MessageDlg('Erro na gravação', mtWarning, [mbOK], 0);
       end;
+  Finally
+  End;
 end;
 
 function TfrmFormHeranca.RetornarCampoTraduzido(Campo:string):string;
@@ -228,8 +238,7 @@ begin
   dtsListagem.DataSet:=QryListagem;
   grdListagem.DataSource:=dtsListagem;
   grdListagem.Options:=[dgTitles,dgIndicator,dgColumnResize,dgColLines,
-  dgRowLines, dgTabs,dgRowSelect,dgAlwaysShowSelection,dgCancelOnExit,
-  dgTitleClick,dgTitleHotTrack];
+    dgRowLines,dgTabs,dgCancelOnExit,dgTitleClick,dgTitleHotTrack]
 end;
 
 procedure TfrmFormHeranca.FormShow(Sender: TObject);
@@ -264,6 +273,7 @@ end;
 {$ENDREGION}
 
 {$REGION 'Procedures e Funções'}
+
 procedure TfrmFormHeranca.grdListagemDblClick(Sender: TObject);
 begin
   btnAlterar.Click;
@@ -272,6 +282,7 @@ end;
 procedure TfrmFormHeranca.grdListagemTitleClick(Column: TColumn);
 begin
   IndiceAtual := Column.FieldName;
+  //QryListagem.FieldByName()
   ExibirLabelIndice(IndiceAtual, lblIndice);
 end;
 

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, uDTMConexao;
+  Dialogs, Menus, uDTMConexao, StdCtrls;
 
 type
   TfrmPrincipal = class(TForm)

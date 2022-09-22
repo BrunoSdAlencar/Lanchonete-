@@ -66,6 +66,7 @@
 			<DCCReference Include="cadastro\uCadCategoria.pas">
 				<Form>frmCadCategoria</Form>
 			</DCCReference>
+			<DCCReference Include="classe\cCadCategoria.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
