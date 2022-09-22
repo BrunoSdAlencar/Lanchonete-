@@ -20,6 +20,33 @@ inherited frmCadCategoria: TfrmCadCategoria
           end>
       end
     end
+    inherited tabManutencao: TTabSheet
+      object edtCategoriaId: TLabeledEdit
+        Tag = 1
+        Left = 16
+        Top = 32
+        Width = 121
+        Height = 21
+        EditLabel.Width = 33
+        EditLabel.Height = 13
+        EditLabel.Caption = 'C'#243'digo'
+        HideSelection = False
+        MaxLength = 10
+        TabOrder = 0
+      end
+      object edtDescricao: TLabeledEdit
+        Tag = 2
+        Left = 16
+        Top = 96
+        Width = 433
+        Height = 21
+        EditLabel.Width = 46
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Descri'#231#227'o'
+        MaxLength = 30
+        TabOrder = 1
+      end
+    end
   end
   inherited pnlRodape: TPanel
     inherited btnNavigator: TDBNavigator

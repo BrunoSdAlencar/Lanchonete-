@@ -11,6 +11,9 @@ type
   TfrmCadCategoria = class(TfrmFormHeranca)
     QryListagemcategoriaId: TAutoIncField;
     QryListagemdescricao: TStringField;
+    edtCategoriaId: TLabeledEdit;
+    edtDescricao: TLabeledEdit;
+    procedure btnGravarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -23,5 +26,18 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmCadCategoria.btnGravarClick(Sender: TObject);
+begin
+  if edtDescricao.Text=EmptyStr then
+    begin
+      ShowMessage('Campo Obrigatorio');
+      edtDescricao.SetFocus;
+      Abort;
+    end;
+
+  inherited;
+
+end;
 
 end.

@@ -37,6 +37,8 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure grdListagemTitleClick(Column: TColumn);
     procedure mskPesquisarChange(Sender: TObject);
+    procedure grdListagemDblClick(Sender: TObject);
+
 
   private
     { Private declarations }
@@ -47,6 +49,9 @@ type
     procedure ControlarIndiceTab(pgcPrincipal: TPageControl; Indice: Integer);
     function RetornarCampoTraduzido(Campo: string): string;
     procedure ExibirLabelIndice(Campo: string; aLabel: TLabel);
+    procedure LimparEdits;
+    function ExisteCampoObrigatorio: Boolean;
+    procedure DesabilitarEditPK;
   public
     { Public declarations }
     IndiceAtual:string;
@@ -85,6 +90,7 @@ procedure TfrmFormHeranca.btnNovoClick(Sender: TObject);
 begin
   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
     btnNavigator, pgcPrincipal, false);
+    LimparEdits;
     EstadoDoCadastro:=ecInserir;
 end;
 
@@ -97,10 +103,19 @@ end;
 
 procedure TfrmFormHeranca.btnApagarClick(Sender: TObject);
 begin
-  if Apagar then begin
-    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
-    btnNavigator, pgcPrincipal, False);
-    ControlarIndiceTab(pgcPrincipal, 0);
+  try
+    if (Apagar) then
+      begin
+        ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+        btnNavigator, pgcPrincipal, true);
+        LimparEdits;
+        ControlarIndiceTab(pgcPrincipal, 0);
+      end
+    else
+      begin
+        MessageDlg('Erro na exclusão!', mtError, [mbOK], 0);
+      end;
+  finally
     EstadoDoCadastro:=ecNenhum;
   end;
 end;
@@ -109,6 +124,7 @@ procedure TfrmFormHeranca.btnCancelarClick(Sender: TObject);
 begin
   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
     btnNavigator, pgcPrincipal, True);
+    LimparEdits;
     ControlarIndiceTab(pgcPrincipal, 0);
     EstadoDoCadastro:=ecNenhum;
 end;
@@ -126,9 +142,15 @@ begin
         ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
         btnNavigator, pgcPrincipal, True);
         ControlarIndiceTab(pgcPrincipal, 0);
+        LimparEdits;
+        EstadoDoCadastro:=ecNenhum;
+      end
+      else
+      begin
+        MessageDlg('Erro na gravação!', mtWarning, [mbOK], 0);
       end;
       finally
-      EstadoDoCadastro:=ecNenhum;
+
       end;
 end;
 
@@ -152,6 +174,28 @@ begin
   aLabel.Caption:=RetornarCampoTraduzido(Campo);
 end;
 
+function TfrmFormHeranca.ExisteCampoObrigatorio:Boolean;
+var
+  i: Integer;
+begin
+                              Result := false;
+  for i := 0 to ComponentCount - 1 do
+  begin
+    if (Components[i] is TLabeledEdit) then
+    begin
+      if (TLabeledEdit(Components[i]).Tag = 2) and
+        (TLabeledEdit(Components[i]).Text = EmptyStr) then
+      begin
+        MessageDlg(TLabeledEdit(Components[i]).EditLabel.Caption +
+          ' é um campo obrigatório', mtInformation, [mbOK], 0);
+        TLabeledEdit(Components[i]).SetFocus;
+        Result := True;
+        Break;
+      end;
+    end;
+  end;
+end;
+
 {$ENDREGION}
 
 {$REGION 'Metodo Virtual'}
@@ -171,6 +215,8 @@ begin
 end;
 
 {$ENDREGION}
+
+{$REGION 'Eventos'}
 procedure TfrmFormHeranca.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   QryListagem.Close;
@@ -193,11 +239,35 @@ begin
     ExibirLabelIndice(IndiceAtual, lblIndice);
     QryListagem.Open;
   end;
+  ControlarIndiceTab(pgcPrincipal, 0);
+  DesabilitarEditPK;
   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
     btnNavigator, pgcPrincipal, True);
 end;
 
+procedure TfrmFormHeranca.DesabilitarEditPK;
+var
+i:Integer;
+begin
+  for i := 0 to ComponentCount - 1 do
+  begin
+    if (Components[i] is TLabeledEdit) then
+    begin
+      if (TLabeledEdit(Components[i]).Tag = 1) then
+      begin
+        TLabeledEdit(Components[i]).Enabled := false;
+        Break;
+      end;
+    end;
+  end;
+end;
+{$ENDREGION}
 
+{$REGION 'Procedures e Funções'}
+procedure TfrmFormHeranca.grdListagemDblClick(Sender: TObject);
+begin
+  btnAlterar.Click;
+end;
 
 procedure TfrmFormHeranca.grdListagemTitleClick(Column: TColumn);
 begin
@@ -205,9 +275,36 @@ begin
   ExibirLabelIndice(IndiceAtual, lblIndice);
 end;
 
+procedure TfrmFormHeranca.LimparEdits;
+  var i: Integer;
+begin
+  for i := 0 to ComponentCount - 1 do
+  begin
+    if (Components[i] is TLabeledEdit) then
+      TLabeledEdit(Components[i]).Text := EmptyStr
+    else if (Components[i] is TEdit) then
+      TEdit(Components[i]).Text := ''
+
+    else if (Components[i] is TMaskEdit) then
+      TMaskEdit(Components[i]).Text := ''
+
+    else if (Components[i] is TMemo) then
+      TMemo(Components[i]).Text := ''
+
+    else if (Components[i] is TDBLookupComboBox) then
+      TDBLookupComboBox(Components[i]).KeyValue:=null;
+  end;
+end;
+
 procedure TfrmFormHeranca.mskPesquisarChange(Sender: TObject);
 begin
   QryListagem.Locate(IndiceAtual, TMaskEdit(Sender).Text, [loPartialKey]);
 end;
+
+
+{$ENDREGION}
+
+
+
 
 end.
