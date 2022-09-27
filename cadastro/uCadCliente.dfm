@@ -6,9 +6,13 @@ inherited frmCadCliente: TfrmCadCliente
   TextHeight = 13
   inherited pgcPrincipal: TPageControl
     Width = 933
+    ActivePage = tabManutencao
+    ExplicitWidth = 933
     inherited tabListagem: TTabSheet
+      ExplicitWidth = 925
       inherited pnlListagemTopo: TPanel
         Width = 925
+        ExplicitWidth = 925
       end
       inherited grdListagem: TDBGrid
         Width = 925
@@ -21,29 +25,28 @@ inherited frmCadCliente: TfrmCadCliente
           end
           item
             Expanded = False
-            FieldName = 'Nome'
+            FieldName = 'nome'
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'Endereco'
+            FieldName = 'endereco'
             Width = 336
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'Bairro'
+            FieldName = 'bairro'
             Visible = False
           end
           item
             Expanded = False
-            FieldName = 'CEP'
+            FieldName = 'cep'
             Visible = False
           end
           item
             Expanded = False
-            FieldName = 'Telefone'
-            Width = 64
+            FieldName = 'telefone'
             Visible = True
           end
           item
@@ -54,19 +57,128 @@ inherited frmCadCliente: TfrmCadCliente
       end
     end
     inherited tabManutencao: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 852
-      ExplicitHeight = 0
+      ExplicitWidth = 925
+      object lbl: TLabel
+        Left = 672
+        Top = 77
+        Width = 19
+        Height = 13
+        Caption = 'CEP'
+      end
+      object lbl1: TLabel
+        Left = 16
+        Top = 130
+        Width = 45
+        Height = 13
+        Caption = 'Endereco'
+        FocusControl = edtEndereco
+      end
+      object lbl2: TLabel
+        Left = 672
+        Top = 130
+        Width = 28
+        Height = 13
+        Caption = 'Bairro'
+        FocusControl = edtBairro
+      end
+      object lbl3: TLabel
+        Left = 16
+        Top = 194
+        Width = 42
+        Height = 13
+        Caption = 'Telefone'
+      end
+      object lbl4: TLabel
+        Left = 16
+        Top = 256
+        Width = 28
+        Height = 13
+        Caption = 'E-mail'
+        FocusControl = edtEmail
+      end
+      object edtClienteId: TLabeledEdit
+        Tag = 1
+        Left = 16
+        Top = 32
+        Width = 121
+        Height = 21
+        EditLabel.Width = 33
+        EditLabel.Height = 13
+        EditLabel.Caption = 'C'#243'digo'
+        HideSelection = False
+        MaxLength = 10
+        TabOrder = 0
+      end
+      object edtNome: TLabeledEdit
+        Tag = 2
+        Left = 16
+        Top = 96
+        Width = 433
+        Height = 21
+        EditLabel.Width = 27
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Nome'
+        MaxLength = 30
+        TabOrder = 1
+      end
+      object edtEndereco: TDBEdit
+        Left = 16
+        Top = 149
+        Width = 638
+        Height = 21
+        DataField = 'endereco'
+        DataSource = dtsListagem
+        TabOrder = 3
+      end
+      object edtBairro: TDBEdit
+        Left = 672
+        Top = 149
+        Width = 194
+        Height = 21
+        DataField = 'bairro'
+        DataSource = dtsListagem
+        TabOrder = 4
+      end
+      object edtEmail: TDBEdit
+        Left = 16
+        Top = 275
+        Width = 353
+        Height = 21
+        DataField = 'email'
+        DataSource = dtsListagem
+        TabOrder = 6
+      end
+      object mskeditCep: TMaskEdit
+        Left = 672
+        Top = 96
+        Width = 116
+        Height = 21
+        EditMask = '00000\-999;1;_'
+        MaxLength = 9
+        TabOrder = 2
+        Text = '     -   '
+      end
+      object mskeditTelefone: TMaskEdit
+        Left = 16
+        Top = 213
+        Width = 119
+        Height = 21
+        EditMask = '!\(99\)00000-0000;1;_'
+        MaxLength = 14
+        TabOrder = 5
+        Text = '(  )     -    '
+      end
     end
   end
   inherited pnlRodape: TPanel
     Width = 933
+    ExplicitWidth = 933
     inherited btnNavigator: TDBNavigator
       Hints.Strings = ()
     end
     inherited btnFechar: TBitBtn
       Left = 837
+      ExplicitLeft = 837
     end
   end
   inherited QryListagem: TADOQuery

@@ -26,6 +26,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure CLIENTES1Click(Sender: TObject);
     procedure CATEGORIA1Click(Sender: TObject);
+    procedure PRODUTOS1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,7 +38,7 @@ var
 
 implementation
 
-uses uCadCliente, uCadCategoria;
+uses uCadCliente, uCadCategoria, uCadProduto;
 
 {$R *.dfm}
 
@@ -74,6 +75,13 @@ begin
     //ShowMessage('Não ta conectado')
   else
     //ShowMessage('Agora ta ')
+end;
+
+procedure TfrmPrincipal.PRODUTOS1Click(Sender: TObject);
+begin
+  frmCadProduto:=TfrmCadProduto.Create(Self);
+  frmCadProduto.ShowModal;
+  frmCadProduto.Release;
 end;
 
 procedure TfrmPrincipal.SAIR1Click(Sender: TObject);

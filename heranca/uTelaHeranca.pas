@@ -302,6 +302,9 @@ begin
     else if (Components[i] is TMemo) then
       TMemo(Components[i]).Text := ''
 
+    else if (Components[i] is TDBEdit) then
+      TMemo(Components[i]).Text := ''
+
     else if (Components[i] is TDBLookupComboBox) then
       TDBLookupComboBox(Components[i]).KeyValue:=null;
   end;
